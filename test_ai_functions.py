@@ -1,13 +1,16 @@
 import ast
 import json
 import time
-import ai_functions
-import pytest
+
 import openai
+import pytest
+
+import ai_functions
 import keys
 
 # Initialize the OpenAI API client
 openai.api_key = keys.OPENAI_API_KEY
+
 
 # Run all tests, print the results, and return the number of failed tests
 def run_tests(model):
@@ -18,8 +21,8 @@ def run_tests(model):
         "Calculate area of triangle",
         "Calculate the nth prime number",
         "Encrypt text",
-        "Find missing numbers"
-]
+        "Find missing numbers",
+    ]
     failed_tests = []
 
     i = 0
@@ -41,11 +44,12 @@ def run_tests(model):
     # Print the number of failed tests
     print(f"Success Rate: {len(test_functions) - len(failed_tests)}/{len(test_functions)}")
 
+
 # Ai function test 1
 def test_1(model):
     function_string = "def fake_people(n: int) -> list[dict]:"
     args = ["4"]
-    description_string = """Generates n examples of fake data representing people, 
+    description_string = """Generates n examples of fake data representing people,
             each with a name and an age."""
 
     result_string = ai_functions.ai_function(function_string, args, description_string, model)
@@ -59,10 +63,10 @@ def test_1(model):
         print("Testing if result can be parsed as a list of dictionaries...")
         # Parse the result as a list of dictionaries
         result = json.loads(result_string)
-    except Exception as e:
+    except Exception:
         # If the result can't be parsed as a list of dictionaries, the test fails
         assert False
-    
+
     # Assert the length of the result is equal to the number of people requested
     print("Testing if the length of the result is equal to the number of people requested...")
     if result:
@@ -70,11 +74,13 @@ def test_1(model):
     else:
         assert False
 
+
 # Ai function test 2
 def test_2(model):
     function_string = "def random_password_generator(length: int, special_chars: bool) -> str:"
     args = ["12", "True"]
-    description_string = """Generates a random password of given length with or without special characters."""
+    description_string = """Generates a random password of given length with or
+            without special characters."""
 
     result_string = ai_functions.ai_function(function_string, args, description_string, model)
 
@@ -83,6 +89,7 @@ def test_2(model):
     # Assert the length of the result is equal to the length requested
     print("Testing if the length of the result is equal to the length requested...")
     assert len(result_string) == int(args[0])
+
 
 # Ai function test 3
 def test_3(model):
@@ -103,8 +110,12 @@ def test_3(model):
 
     # Assert the result is equal to the expected area of the triangle
     expected_area = (float(args[0]) * float(args[1])) / 2
-    print("Testing if the result is equal to the expected area of the triangle, which is: " + str(expected_area))
+    print(
+        "Testing if the result is equal to the expected area of the triangle, which is: "
+        + str(expected_area)
+    )
     assert float(result_string) == pytest.approx(expected_area)
+
 
 # Ai function test 4
 def test_4(model):
@@ -126,14 +137,19 @@ def test_4(model):
 
     # Assert the result is equal to the expected nth prime number
     expected_prime_number = 29
-    print("Testing if the result is equal to the expected nth prime number, which is: " + str(expected_prime_number))
+    print(
+        "Testing if the result is equal to the expected nth prime number, which is: "
+        + str(expected_prime_number)
+    )
     assert int(result_string) == expected_prime_number
+
 
 # Ai function test 5
 def test_5(model):
     function_string = "def encrypt_text(text: str, key: str) -> str:"
     args = ["'Hello, World!'", "'abc123'"]
-    description_string = """Encrypts the given text using a simple character substitution based on the provided key."""
+    description_string = """Encrypts the given text using a simple character
+            substitution based on the provided key."""
 
     result_string = ai_functions.ai_function(function_string, args, description_string, model)
 
@@ -142,6 +158,7 @@ def test_5(model):
     # Assert the result has the same length as the input text
     print("Testing if the result has the same length as the input text...")
     assert len(result_string) == len(args[0])
+
 
 # Ai function test 6
 def test_6(model):
@@ -166,6 +183,7 @@ def test_6(model):
     expected_missing_numbers = [4, 6, 7, 9, 10, 11, 12, 13, 14]
     print("Testing if the result list contains the expected missing numbers...")
     assert result_list == expected_missing_numbers
+
 
 run_tests("gpt-4")
 run_tests("gpt-3.5-turbo")

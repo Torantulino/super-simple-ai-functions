@@ -69,14 +69,14 @@ print(result)  # Output: 12
 
 The table below shows the success rate of the AI functions with different GPT models:
 
-| Description               | GPT-4 Result | GPT-3.5-turbo Result | Reason |
-|---------------------------|--------------|----------------------|--------|
-| Generate fake people      | PASSED       | FAILED               | Incorrect response format |
-| Generate Random Password  | PASSED       | PASSED               | N/A |
-| Calculate area of triangle| FAILED       | FAILED               | Incorrect float value (GPT-4), Incorrect response format (GPT-3.5-turbo) |
-| Calculate the nth prime number | PASSED  | PASSED               | N/A    |
-| Encrypt text              | PASSED       | PASSED               | N/A    |
-| Find missing numbers      | PASSED       | PASSED               | N/A    |
+| Description                    | GPT-4 Result | GPT-3.5-turbo Result | Reason                                                                   |
+| ------------------------------ | ------------ | -------------------- | ------------------------------------------------------------------------ |
+| Generate fake people           | PASSED       | FAILED               | Incorrect response format                                                |
+| Generate Random Password       | PASSED       | PASSED               | N/A                                                                      |
+| Calculate area of triangle     | FAILED       | FAILED               | Incorrect float value (GPT-4), Incorrect response format (GPT-3.5-turbo) |
+| Calculate the nth prime number | PASSED       | PASSED               | N/A                                                                      |
+| Encrypt text                   | PASSED       | PASSED               | N/A                                                                      |
+| Find missing numbers           | PASSED       | PASSED               | N/A                                                                      |
 
 It's important to note that AI Functions are not suited for certain tasks, particularly those involving mathematical calculations and precision. As observed in the case of calculating the area of a triangle and finding the nth prime number, GPT models can struggle with providing accurate results. The limitations of GPT models in such cases are mainly due to their inherent inability to perform precise arithmetic and the ambiguity in understanding user inputs.
 
@@ -93,6 +93,16 @@ python test_ai_functions.py
 ```
 
 The test script will output the results of each test case and provide a success rate.
+
+### Code Formatting
+
+1. Install black `pip install black` and run it with `black -l 100 ai_functions.py test_ai_functions.py`
+2. Install isort `pip install isort` and run it with `isort ai_functions.py test_ai_functions.py`
+3. Install flake8 `pip install flake8` and run it with `flake8 --max-line-length=100 ai_functions.py test_ai_functions.py`
+
+Alternatively:
+1. you can run `make format-code` to apply `black` and `isort`
+2. you can run `make check-code` to apply `flake8`
 
 ## Contributing
 
