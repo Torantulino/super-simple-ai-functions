@@ -1,13 +1,23 @@
 import ast
 import json
+import os
 import time
-import ai_functions
-import pytest
+
 import openai
-import keys
+import pytest
+from dotenv import load_dotenv
+
+import ai_functions
+
+# Load environment variables
+load_dotenv()
 
 # Initialize the OpenAI API client
-openai.api_key = keys.OPENAI_API_KEY
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+@pytest.fixture
+def model():
+    return os.getenv("OPENAI_MODEL", "gpt-4")
 
 # Run all tests, print the results, and return the number of failed tests
 def run_tests(model):
@@ -19,7 +29,7 @@ def run_tests(model):
         "Calculate the nth prime number",
         "Encrypt text",
         "Find missing numbers"
-]
+    ]
     failed_tests = []
 
     i = 0
