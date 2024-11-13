@@ -166,6 +166,75 @@ def test_6(model):
     expected_missing_numbers = [4, 6, 7, 9, 10, 11, 12, 13, 14]
     print("Testing if the result list contains the expected missing numbers...")
     assert result_list == expected_missing_numbers
+    
+# Ai function test 7
+def test_7(model):
+    function_string = "def calculate_factorial(n: int) -> int:"
+    args = ["5"]
+    description_string = """Calculates and returns the factorial of a given non-negative integer n."""
+
+    result_string = ai_functions.ai_function(function_string, args, description_string, model)
+
+    print(f"Output: {result_string}")
+
+    # Assert the result can be parsed as an integer
+    print("Testing if result is an integer...")
+    try:
+        assert isinstance(int(result_string), int)
+    except Exception as e:
+        print(e)
+        assert False
+
+    # Assert the result is equal to the expected factorial value
+    expected_factorial = 120
+    print("Testing if the result is equal to the expected factorial, which is: " + str(expected_factorial))
+    assert int(result_string) == expected_factorial
+
+
+# Ai function test 8
+def test_8(model):
+    function_string = "def generate_fibonacci_sequence(n: int) -> list[int]:"
+    args = ["10"]
+    description_string = """Generates and returns the first n numbers in the Fibonacci sequence."""
+
+    result_string = ai_functions.ai_function(function_string, args, description_string, model)
+
+    print(f"Output: {result_string}")
+
+    # Assert the result can be parsed as a list of integers
+    try:
+        result_list = ast.literal_eval(result_string)
+        print("Testing if result is a list of integers...")
+        assert isinstance(result_list, list) and all(isinstance(x, int) for x in result_list)
+    except Exception as e:
+        print(e)
+        assert False
+
+    # Assert the result list contains the expected Fibonacci sequence
+    expected_fibonacci_sequence = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+    print("Testing if the result list contains the expected Fibonacci sequence...")
+    assert result_list == expected_fibonacci_sequence
+
+
+# Ai function test 9
+def test_9(model):
+    function_string = "def reverse_words_in_string(s: str) -> str:"
+    args = ["'Hello, World!'"]
+    description_string = """Reverses the words in a given string and returns the result."""
+
+    result_string = ai_functions.ai_function(function_string, args, description_string, model)
+
+    print(f"Output: {result_string}")
+
+    # Assert the result has the same length as the input string
+    print("Testing if the result has the same length as the input string...")
+    assert len(result_string) == len(args[0])
+
+    # Assert the result is the expected reversed words string
+    expected_reversed_words_string = "World! Hello,"
+    print("Testing if the result is the expected reversed words string...")
+    assert result_string == expected_reversed_words_string
+
 
 run_tests("gpt-4")
 run_tests("gpt-3.5-turbo")
