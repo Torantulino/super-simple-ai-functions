@@ -51,6 +51,7 @@ The `ai_function` takes the following parameters:
 - `args`: A list of arguments for the function.
 - `description`: A string describing the purpose of the function.
 - `model`: (Optional) A string specifying the GPT model to use. Default is 'gpt-4'.
+- `error_correction`: (Optional) A boolean specifying if mulitple additional attempts are being made to auto-correct errors. Default is 'false'.
 
 Example usage:
 
@@ -67,21 +68,18 @@ print(result)  # Output: 12
 
 ## Limitations
 
-The table below shows the success rate of the AI functions with different GPT models:
+The table below shows the success rate of the AI functions with different GPT models without using error correction:
 
-| Description               | GPT-4 Result | GPT-3.5-turbo Result | Reason |
+| Description               | GPT-4 Result | GPT-3.5-turbo Result | Comment |
 |---------------------------|--------------|----------------------|--------|
-| Generate fake people      | PASSED       | FAILED               | Incorrect response format |
+| Generate fake people      | PASSED       | PASSED               | N/A |
 | Generate Random Password  | PASSED       | PASSED               | N/A |
-| Calculate area of triangle| FAILED       | FAILED               | Incorrect float value (GPT-4), Incorrect response format (GPT-3.5-turbo) |
+| Calculate area of triangle| PASSED       | PASSED               | N/A |
 | Calculate the nth prime number | PASSED  | PASSED               | N/A    |
 | Encrypt text              | PASSED       | PASSED               | N/A    |
 | Find missing numbers      | PASSED       | PASSED               | N/A    |
 
-It's important to note that AI Functions are not suited for certain tasks, particularly those involving mathematical calculations and precision. As observed in the case of calculating the area of a triangle and finding the nth prime number, GPT models can struggle with providing accurate results. The limitations of GPT models in such cases are mainly due to their inherent inability to perform precise arithmetic and the ambiguity in understanding user inputs.
-
-In conclusion, while AI Functions can be helpful in various scenarios, they may not be the optimal choice for tasks requiring mathematical accuracy or specific domain knowledge. For such use-cases, utilizing traditional algorithms and libraries would yield better results.
-
+We are looking for more test cases that will push the boundaries of AI Functions.
 
 
 ### test_ai_functions.py
