@@ -11,15 +11,16 @@ openai.api_key = keys.OPENAI_API_KEY
 
 # Run all tests, print the results, and return the number of failed tests
 def run_tests(model):
-    test_functions = [test_1, test_2, test_3, test_4, test_5, test_6]
+    test_functions = [test_1, test_2, test_3, test_4, test_5, test_6, test_7]
     test_names = [
         "Generate fake people",
         "Generate Random Password",
         "Calculate area of triangle",
         "Calculate the nth prime number",
         "Encrypt text",
-        "Find missing numbers"
-]
+        "Find missing numbers",
+        "Substitute prime numbers"
+    ]
     failed_tests = []
 
     i = 0
@@ -235,6 +236,31 @@ def test_9(model):
     print("Testing if the result is the expected reversed words string...")
     assert result_string == expected_reversed_words_string
 
+
+def test_7(model):
+    function_string = "def substitute_prime_numbers_in_list(numbers: list[int]) -> list[int]:"
+    args = ["[5, 8, 10, 3, 29]"]
+    description_string = """Substitutes the prime numbers in a list with the closest greater composite and returns the list."""
+
+    result_string = ai_functions.ai_function(function_string, args, description_string, model)
+
+    print(f"Output: {result_string}")
+
+    # Assert the result can be parsed as a list
+    try:
+        result_list = ast.literal_eval(result_string)
+        print("Testing if result is a a list...")
+        assert isinstance(result_list, list)
+    except Exception as e:
+        print(e)
+        assert False
+
+    # Assert the result list contains the expected composite
+    expected_numbers = [6, 8, 10, 4, 30]
+    print("Testing if the result list is the same length as the input list...")
+    assert len(result_list) == len(expected_numbers)
+    print("Testing if the result list contains the expected composite numbers...")
+    assert result_list == expected_numbers
 
 run_tests("gpt-4")
 run_tests("gpt-3.5-turbo")
