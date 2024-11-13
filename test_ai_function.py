@@ -45,7 +45,7 @@ def run_tests(model):
 def test_1(model):
     function_string = "def fake_people(n: int) -> list[dict]:"
     args = ["4"]
-    description_string = """Generates n examples of fake data representing people, 
+    description_string = """Generates n examples of fake data representing people in valid JSON format using double quotes not single quotes, 
             each with a name and an age."""
 
     result_string = ai_functions.ai_function(function_string, args, description_string, model)
