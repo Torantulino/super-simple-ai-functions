@@ -1,1 +1,13 @@
+# ignore keys.py so that you won't accidentally expose your API_KEY
+keys.py
+
 *.pyc
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
